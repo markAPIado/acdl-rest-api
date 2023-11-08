@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+    # NOTE: Uncomment args below to use a custom image for the API. Otherwise, the API will use the default image which is the repository of this project. By convention, the image should be named as <dockerhub_username>/<image_name>. You can can append a tag to the image name by adding a colon (:) after the image name and then the tag name. For example, markapiado/acdl-rest-api-dev:latest
+    image: markapiado/acdl-rest-api:latest
+    env_file:
+      - ./docker/production.env
+    ports:
+      - 5000:5000
+    # NOTE: Uncomment the following lines to use mongo as a database for the API. Otherwise, the API will use mongo uri from the ENV on the host machine.
+#     depends_on:
+#       - mongo
+#   mongo:
+#     image: mongo:jammy
+#     restart: always
+#     ports:
+#       - 27017:27017
+#     volumes:
+#       - acdl-rest-api-data:/data/db
+
+# volumes:
+#   acdl-rest-api-data:

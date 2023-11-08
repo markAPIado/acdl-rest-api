@@ -1,0 +1,64 @@
+name: Build
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    env:
+      # This means that the CI environment variable will be set to true for all steps in the workflow.
+      CI: true
+      PORT: 5000
+      HOST: http://localhost
+      MONGO_URI: mongodb://localhost:27017/
+      MONGO_DB_NAME: acdl-restapi
+      MORGAN_ENABLED: 1
+      MONGODB_LOGGER_ENABLED: 1
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+        # Use the following for testing on multiple platforms
+        # platform: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [18.x]
+        # Use the following for testing on multiple node versions
+        # node-version: [16.x, 18.x, 20.x]
+        mongodb-version: ['6.0']
+        # Use the following for testing on multiple mongodb versions
+        # mongodb-version: ['4.2', '4.4', '5.0', '6.0', '6.2']
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js versions ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Print Node.js version
+      - name: Get node version
+        run: node -v
+
+      # Cache node_modules to speed up builds and reduce costs by not having to reinstall dependencies on every run.
+      - name: Get node_modules cache
+        uses: actions/cache@v3.0.2
+        id: node_modules
+        with:
+          # path to the directory to be cached
+          path: |
+            **/node_modules
+          # cache key, changes if package-lock.json changes
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
+
+      # Run MongoDB in the background
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.10.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
+      # The npm ci command is particularly useful in continuous integration (CI) environments. It's similar to npm install, but it's designed to be faster and more reliable for CI builds.
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm test
