@@ -5,3 +5,7 @@ import Product from './product.model';
 export function createProduct(input: ProductDto): HydratedDocument<ProductDto> {
   return new Product(input);
 }
+
+export function getProductById(id: string) {
+  return Product.findById(id);
+}
