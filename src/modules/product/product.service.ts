@@ -1,5 +1,5 @@
 import { HydratedDocument } from 'mongoose';
-import { ProductDto } from './product.dto';
+import { ProductDto, UpdateProductDto } from './product.dto';
 import Product from './product.model';
 
 export function createProduct(input: ProductDto): HydratedDocument<ProductDto> {
@@ -12,4 +12,11 @@ export function getProductById(id: string) {
 
 export function getProductList() {
   return Product.find();
+}
+
+export function updateProduct(
+  id: UpdateProductDto['params']['id'],
+  product: UpdateProductDto['body']
+) {
+  return Product.findByIdAndUpdate(id, product, { new: true });
 }

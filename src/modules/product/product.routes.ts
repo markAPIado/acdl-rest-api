@@ -2,10 +2,15 @@ import { Router } from 'express';
 import {
   createProductHandler,
   getProductByIdHandler,
-  getProductListHandler
+  getProductListHandler,
+  updateProductHandler
 } from './product.controller';
 import validateRequest from '../../shared/middlewares/validate-request.middleware';
-import { createProductSchema, getProductByIdSchema } from './product.schema';
+import {
+  createProductSchema,
+  getProductByIdSchema,
+  updateProductSchema
+} from './product.schema';
 import { validateId } from '../../shared/middlewares/validate-id.middleware';
 
 export enum ProductRoutes {
@@ -30,5 +35,11 @@ productRouter.get(
 );
 
 productRouter.get(ProductRoutes.RootPath, getProductListHandler);
+
+productRouter.put(
+  ProductRoutes.Id,
+  [validateId, validateRequest(updateProductSchema)],
+  updateProductHandler
+);
 
 export default productRouter;

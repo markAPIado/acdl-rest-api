@@ -56,14 +56,6 @@ export const createProductSchema = z.object({
   body: z.object(productSchema)
 });
 
-// const params = {
-//   params: z.object({
-//     id: z.string({
-//       required_error: 'Product ID is required'
-//     })
-//   })
-// };
-
 const params = z.object({
   id: z.string({
     required_error: 'Product ID is required'
@@ -72,4 +64,9 @@ const params = z.object({
 
 export const getProductByIdSchema = z.object({
   params
+});
+
+export const updateProductSchema = z.object({
+  params,
+  body: z.object(productSchema)
 });
