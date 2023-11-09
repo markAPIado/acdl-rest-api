@@ -8,7 +8,7 @@ import {
 
 export type CreateProductDto = z.infer<typeof createProductSchema>;
 
-export type GetProductByIdDto = z.infer<typeof getProductByIdSchema>['params'];
+export type GetProductByIdDto = z.infer<typeof getProductByIdSchema>;
 
 export type UpdateProductDto = z.infer<typeof updateProductSchema>;
 

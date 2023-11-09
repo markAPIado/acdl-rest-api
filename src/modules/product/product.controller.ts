@@ -21,7 +21,7 @@ export async function createProductHandler(req: Request, res: Response) {
 }
 
 export async function getProductByIdHandler(
-  req: Request<GetProductByIdDto>,
+  req: Request<GetProductByIdDto['params']>,
   res: Response,
   next: NextFunction
 ) {
