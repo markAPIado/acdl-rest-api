@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import { Timestamps } from '../../shared/entities/mongoose/base.interface';
-import { ProductDto } from './product.dto';
+import { CreateProductDto } from './product.dto';
 import { PRODUCT, PRODUCT_VALIDATION } from './product.constants';
 
-export interface IProduct extends Timestamps, ProductDto {}
+type ProductBody = CreateProductDto['body'];
+
+export interface IProduct extends Timestamps, ProductBody {}
 
 const productSchema = new mongoose.Schema<IProduct>(
   {

@@ -6,7 +6,7 @@ import {
   updateProductSchema
 } from './product.schema';
 
-export type ProductDto = z.infer<typeof createProductSchema>['body'];
+export type CreateProductDto = z.infer<typeof createProductSchema>;
 
 export type GetProductByIdDto = z.infer<typeof getProductByIdSchema>['params'];
 
