@@ -70,3 +70,7 @@ export const updateProductSchema = z.object({
   params,
   body: z.object(productSchema)
 });
+
+export const deleteProductSchema = z.object({
+  params
+});

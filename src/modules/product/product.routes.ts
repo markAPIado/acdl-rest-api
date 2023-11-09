@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   createProductHandler,
+  deleteProductHandler,
   getProductByIdHandler,
   getProductListHandler,
   updateProductHandler
@@ -8,6 +9,7 @@ import {
 import validateRequest from '../../shared/middlewares/validate-request.middleware';
 import {
   createProductSchema,
+  deleteProductSchema,
   getProductByIdSchema,
   updateProductSchema
 } from './product.schema';
@@ -40,6 +42,12 @@ productRouter.put(
   ProductRoutes.Id,
   [validateId, validateRequest(updateProductSchema)],
   updateProductHandler
+);
+
+productRouter.delete(
+  ProductRoutes.Id,
+  [validateId, validateRequest(deleteProductSchema)],
+  deleteProductHandler
 );
 
 export default productRouter;

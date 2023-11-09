@@ -2,11 +2,16 @@ import { NextFunction, Request, Response } from 'express';
 import { HttpCode } from '../../shared/server/http/http-code.util';
 import {
   createProduct,
+  deleteProduct,
   getProductById,
   getProductList,
   updateProduct
 } from './product.service';
-import { GetProductByIdDto, UpdateProductDto } from './product.dto';
+import {
+  DeleteProductDto,
+  GetProductByIdDto,
+  UpdateProductDto
+} from './product.dto';
 import { AppError } from '../../shared/server/http/app-error.util';
 
 export async function createProductHandler(req: Request, res: Response) {
@@ -51,4 +56,18 @@ export async function updateProductHandler(
   }
 
   return res.status(HttpCode.Ok).json(updatedProduct);
+}
+
+export async function deleteProductHandler(
+  req: Request<DeleteProductDto['params']>,
+  res: Response,
+  next: NextFunction
+) {
+  const { deletedCount } = await deleteProduct(req.params.id);
+
+  if (deletedCount === 0) {
+    return next(new AppError('Product not found.', HttpCode.NotFound));
+  }
+
+  return res.status(HttpCode.Ok).json(deleteProduct);
 }
