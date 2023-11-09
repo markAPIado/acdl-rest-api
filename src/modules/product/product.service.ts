@@ -9,3 +9,7 @@ export function createProduct(input: ProductDto): HydratedDocument<ProductDto> {
 export function getProductById(id: string) {
   return Product.findById(id);
 }
+
+export function getProductList() {
+  return Product.find();
+}

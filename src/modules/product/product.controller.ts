@@ -1,6 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { HttpCode } from '../../shared/server/http/http-code.util';
-import { createProduct, getProductById } from './product.service';
+import {
+  createProduct,
+  getProductById,
+  getProductList
+} from './product.service';
 import { GetProductByIdDto } from './product.dto';
 import { AppError } from '../../shared/server/http/app-error.util';
 
@@ -22,4 +26,10 @@ export async function getProductByIdHandler(
   }
 
   return res.status(HttpCode.Ok).json(product);
+}
+
+export async function getProductListHandler(req: Request, res: Response) {
+  const products = await getProductList();
+
+  return res.status(HttpCode.Ok).json(products);
 }

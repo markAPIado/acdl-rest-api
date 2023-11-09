@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import {
   createProductHandler,
-  getProductByIdHandler
+  getProductByIdHandler,
+  getProductListHandler
 } from './product.controller';
 import validateRequest from '../../shared/middlewares/validate-request.middleware';
 import { createProductSchema, getProductByIdSchema } from './product.schema';
@@ -27,5 +28,7 @@ productRouter.get(
   [validateId, validateRequest(getProductByIdSchema)],
   getProductByIdHandler
 );
+
+productRouter.get(ProductRoutes.RootPath, getProductListHandler);
 
 export default productRouter;
