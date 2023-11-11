@@ -5,6 +5,7 @@ import notFound from './middlewares/not-found.middleware';
 import productRouter, {
   ProductRoutes
 } from '../modules/product/product.routes';
+import userRouter, { UserRoutes } from '../modules/user/user.routes';
 
 const API_PREFIX = '/v1/api';
 
@@ -12,6 +13,8 @@ function initRoutes(app: Express) {
   /**
    * NOTE: Add your routes here
    */
+
+  app.use(`${API_PREFIX}${UserRoutes.ApiPath}`, userRouter);
   app.use(`${API_PREFIX}${ProductRoutes.ApiPath}`, productRouter);
 
   /**
