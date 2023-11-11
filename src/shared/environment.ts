@@ -19,7 +19,8 @@ const environment = {
   mongoUrl: `${process.env.MONGO_URI}${process.env.MONGO_DB_NAME}-${process.env.NODE_ENV}`, // Creates a new database for each active environment (test, development, production)
   morganEnabled: !!process.env.MORGAN_ENABLED, // "!!" converts the value to boolean (1 = true, empty = false)
   mongoDbLoggerEnabled: !!process.env.MONGODB_LOGGER_ENABLED, // "!!" converts the value to boolean (1 = true, empty = false)
-  corsOrigin: process.env.CORS_ORIGIN
+  corsOrigin: process.env.CORS_ORIGIN,
+  saltWorkFactor: process.env.SALT_WORK_FACTOR // value is string, so they need to be converted to numbers
   /**
    * NOTE: Add more environment variables here
    */

@@ -1,13 +1,24 @@
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument, Model } from 'mongoose';
+import bcrypt from 'bcryptjs';
 import { Timestamps } from '../../shared/entities/mongoose/base.interface';
 import { USER, USER_VALIDATION } from './user.constants';
 import { CreateUserDto } from './user.dto';
+import environment from '../../shared/environment';
+import { AppError } from '../../shared/server/http/app-error.util';
+import { HttpCode } from '../../shared/server/http/http-code.util';
 
 type UserBody = CreateUserDto['body'];
 
 export interface IUser extends Timestamps, UserBody {}
 
-const userSchema = new mongoose.Schema<IUser>(
+export interface IUserMethods {
+  comparePassword(candidatePassword: string): Promise<boolean>;
+}
+
+// Note: Record<string, never> is used to avoid passing in {} as the type
+type UserModelType = Model<IUser, Record<string, never>, IUserMethods>;
+
+const userSchema = new mongoose.Schema<IUser, UserModelType, IUserMethods>(
   {
     name: {
       type: String,
@@ -64,6 +75,42 @@ const userSchema = new mongoose.Schema<IUser>(
 
 userSchema.index({ email: 1 }, { unique: true });
 
-const User = mongoose.model<IUser>(USER, userSchema);
+userSchema.pre('save', async function (next) {
+  const user = this as HydratedDocument<IUser>;
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  if (!environment.saltWorkFactor) {
+    return next(
+      new AppError(
+        'Salt work factor is not defined',
+        HttpCode.InternalServerError
+      )
+    );
+  }
+
+  const salt = await bcrypt.genSalt(parseInt(environment.saltWorkFactor));
+
+  const hashedPassword = await bcrypt.hash(user.password, salt);
+
+  user.password = hashedPassword;
+
+  return next();
+});
+
+userSchema.methods.comparePassword = async function (
+  candidatePassword: string
+): Promise<boolean> {
+  return bcrypt
+    .compare(candidatePassword, this.password)
+    .then((isMatch) => {
+      return isMatch;
+    })
+    .catch(() => false);
+};
+
+const User = mongoose.model<IUser, UserModelType>(USER, userSchema);
 
 export default User;
