@@ -15,6 +15,8 @@ export interface IUserMethods {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
+export type UserQuery = IUser & IUserMethods;
+
 // Note: Record<string, never> is used to avoid passing in {} as the type
 type UserModelType = Model<IUser, Record<string, never>, IUserMethods>;
 

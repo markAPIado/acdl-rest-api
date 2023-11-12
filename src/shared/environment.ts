@@ -20,7 +20,9 @@ const environment = {
   morganEnabled: !!process.env.MORGAN_ENABLED, // "!!" converts the value to boolean (1 = true, empty = false)
   mongoDbLoggerEnabled: !!process.env.MONGODB_LOGGER_ENABLED, // "!!" converts the value to boolean (1 = true, empty = false)
   corsOrigin: process.env.CORS_ORIGIN,
-  saltWorkFactor: process.env.SALT_WORK_FACTOR // value is string, so they need to be converted to numbers
+  saltWorkFactor: process.env.SALT_WORK_FACTOR, // value is string, so they need to be converted to numbers
+  jwtSecret: process.env.JWT_SECRET,
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN
   /**
    * NOTE: Add more environment variables here
    */
