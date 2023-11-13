@@ -1,6 +1,13 @@
 export const PRODUCT = 'Product';
 
 export const PRODUCT_VALIDATION = {
+  USER: {
+    MAX_LENGTH: {
+      VALUE: 100,
+      MESSAGE: 'User ID must be less than 100 characters'
+    },
+    REQUIRED: { VALUE: true, MESSAGE: 'User ID is required' }
+  },
   NAME: {
     MAX_LENGTH: {
       VALUE: 100,

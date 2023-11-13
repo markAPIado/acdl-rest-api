@@ -1,18 +1,14 @@
 import { HydratedDocument, Query } from 'mongoose';
-import {
-  DeleteProductDto,
-  CreateProductDto,
-  UpdateProductDto
-} from './product.dto';
-import Product, { IProduct } from './product.model';
+import { DeleteProductDto, UpdateProductDto } from './product.dto';
+import Product, { IProduct, ProductBody } from './product.model';
 
-export function createProduct(
-  input: CreateProductDto['body']
-): HydratedDocument<IProduct> {
+export function createProduct(input: ProductBody): HydratedDocument<IProduct> {
   return new Product(input);
 }
 
-export function getProductById(id: string): Query<IProduct | null, IProduct> {
+export function getProductById(
+  id: string
+): Query<HydratedDocument<IProduct> | null, HydratedDocument<IProduct>> {
   return Product.findById(id);
 }
 

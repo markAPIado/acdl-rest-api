@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import { get } from 'lodash';
+import { HydratedDocument } from 'mongoose';
+import { IUser } from '../../modules/user/user.model';
+import environment from '../environment';
+import { VerifyTokenResultError, verifyToken } from '../security/jwt.utils';
 import { AppError } from '../server/http/app-error.util';
 import { HttpCode } from '../server/http/http-code.util';
-import { VerifyTokenResultError, verifyToken } from '../security/jwt.utils';
-import environment from '../environment';
-import { CreateUserDto } from '../../modules/user/user.dto';
 
 export interface RequestWithUser extends Request {
-  user: Omit<CreateUserDto['body'], 'password'>;
+  user?: Pick<HydratedDocument<IUser>, 'name' | 'email' | '_id'>;
 }
 
 export function requireUser(req: Request, res: Response, next: NextFunction) {
@@ -24,7 +25,7 @@ export function requireUser(req: Request, res: Response, next: NextFunction) {
   }
 
   const { decoded, error } = verifyToken<
-    Omit<CreateUserDto['body'], 'password'>,
+    Pick<HydratedDocument<IUser>, 'name' | 'email' | '_id'>,
     VerifyTokenResultError
   >(token, environment.jwtSecret);
 
