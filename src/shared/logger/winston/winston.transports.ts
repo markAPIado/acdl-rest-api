@@ -5,7 +5,10 @@ import environment, { Environment } from '../../environment';
  * NOTE: This is the directory where the logs will be stored. In production, it is recommended to store the logs in a different directory. Check the Dockerfile. In test mode, the logs will be stored in the logs directory.
  */
 const logsDir =
-  environment.nodeEnv === Environment.Test ? 'logs' : '/var/log/nodeapp';
+  environment.nodeEnv === Environment.Test ||
+  environment.inlineFileLoggingEnabled
+    ? 'logs'
+    : '/var/log/nodeapp';
 
 export const consoleLoggerTransport = new transports.Console({
   format: format.combine(

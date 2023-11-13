@@ -1,4 +1,6 @@
-# Rest API
+[![Build](https://github.com/markAPIado/acdl-rest-api/actions/workflows/build.yml/badge.svg)](https://github.com/markAPIado/acdl-rest-api/actions/workflows/build.yml)
+
+# Resti
 
 This is a simple NodeJs Typescript Rest API using MVC design pattern. It uses MongoDB as the database and ExpressJs as the web framework.
 
@@ -15,6 +17,12 @@ This is a simple NodeJs Typescript Rest API using MVC design pattern. It uses Mo
 - [x] Docker containerization
 
 ## Installation
+
+Clone the repository using the command below.
+
+```
+https://github.com/markAPIado/acdl-rest-api.git
+```
 
 Run the following command to install the dependencies.
 
@@ -141,3 +149,7 @@ npm run cluster:start
 **Cleaning up**
 
 - `npm run clean` - removes the `dist`, `coverage`, and `node_modules` folders.
+
+# Postman Collection
+
+Import the <a href="RESTI Collections.postman_collection.json" target="_blank">RESTI Collections.postman_collection.json</a> file to Postman to test the API endpoints.
