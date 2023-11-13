@@ -4,6 +4,8 @@
 
 This is a simple NodeJs Typescript Rest API using MVC design pattern. It uses MongoDB as the database and ExpressJs as the web framework.
 
+You may check the depyloyed API at https://resti.markapiado.com/health-check. Check the <a href="RESTI Collections.postman_collection.json" target="_blank">Postman Collection</a> for the API endpoints.
+
 ## Features
 
 - [x] Typescript
