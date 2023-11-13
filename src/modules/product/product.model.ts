@@ -1,15 +1,24 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, Types } from 'mongoose';
 import validator from 'validator';
 import { Timestamps } from '../../shared/entities/mongoose/base.interface';
 import { CreateProductDto } from './product.dto';
 import { PRODUCT, PRODUCT_VALIDATION } from './product.constants';
+import { USER } from '../user/user.constants';
 
-type ProductBody = CreateProductDto['body'];
+export type ProductBody = CreateProductDto['body'] & { user: Types.ObjectId };
 
 export interface IProduct extends Timestamps, ProductBody {}
 
 const productSchema = new mongoose.Schema<IProduct>(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: USER,
+      required: [
+        PRODUCT_VALIDATION.USER.REQUIRED.VALUE,
+        PRODUCT_VALIDATION.USER.REQUIRED.MESSAGE
+      ]
+    },
     name: {
       type: String,
       required: [
