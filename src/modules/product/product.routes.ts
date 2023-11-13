@@ -14,6 +14,7 @@ import {
   updateProductSchema
 } from './product.schema';
 import { validateId } from '../../shared/middlewares/validate-id.middleware';
+import { requireUser } from '../../shared/middlewares/auth.middleware';
 
 export enum ProductRoutes {
   // ApiPath is intended to be used in the routes file
@@ -26,7 +27,7 @@ const productRouter = Router();
 
 productRouter.post(
   ProductRoutes.RootPath,
-  [validateRequest(createProductSchema)],
+  [requireUser, validateRequest(createProductSchema)],
   createProductHandler
 );
 
@@ -40,13 +41,13 @@ productRouter.get(ProductRoutes.RootPath, getProductListHandler);
 
 productRouter.put(
   ProductRoutes.Id,
-  [validateId, validateRequest(updateProductSchema)],
+  [requireUser, validateId, validateRequest(updateProductSchema)],
   updateProductHandler
 );
 
 productRouter.delete(
   ProductRoutes.Id,
-  [validateId, validateRequest(deleteProductSchema)],
+  [requireUser, validateId, validateRequest(deleteProductSchema)],
   deleteProductHandler
 );
 

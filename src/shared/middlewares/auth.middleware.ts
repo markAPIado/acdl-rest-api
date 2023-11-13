@@ -2,19 +2,15 @@ import { NextFunction, Request, Response } from 'express';
 import { get } from 'lodash';
 import { AppError } from '../server/http/app-error.util';
 import { HttpCode } from '../server/http/http-code.util';
-import { verifyToken } from '../security/jwt.utils';
+import { VerifyTokenResultError, verifyToken } from '../security/jwt.utils';
 import environment from '../environment';
 import { CreateUserDto } from '../../modules/user/user.dto';
 
-interface RequestWithUser extends Request {
+export interface RequestWithUser extends Request {
   user: Omit<CreateUserDto['body'], 'password'>;
 }
 
-export function requireUser(
-  req: RequestWithUser,
-  res: Response,
-  next: NextFunction
-) {
+export function requireUser(req: Request, res: Response, next: NextFunction) {
   const token = get(req, 'headers.authorization', '').replace(/^Bearer\s/, '');
 
   if (!token) {
@@ -27,16 +23,22 @@ export function requireUser(
     );
   }
 
-  const { decoded } = verifyToken<Omit<CreateUserDto['body'], 'password'>>(
-    token,
-    environment.jwtSecret
-  );
+  const { decoded, error } = verifyToken<
+    Omit<CreateUserDto['body'], 'password'>,
+    VerifyTokenResultError
+  >(token, environment.jwtSecret);
+
+  if (error) {
+    return next(new AppError(error.name, HttpCode.Unauthorized));
+  }
 
   if (!decoded) {
     return next(new AppError('Unauthorized', HttpCode.Unauthorized));
   }
 
-  req.user = decoded;
+  const reqWithUser = req as RequestWithUser;
+
+  reqWithUser.user = decoded;
 
   next();
 }

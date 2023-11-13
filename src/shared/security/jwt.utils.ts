@@ -11,21 +11,20 @@ export function generateToken<T extends object>(
   });
 }
 
-type VerifyTokenResultError =
-  | 'TokenExpiredError'
-  | 'JsonWebTokenError'
-  | 'NotBeforeError';
+export type VerifyTokenResultError = {
+  name: 'TokenExpiredError' | 'JsonWebTokenError' | 'NotBeforeError';
+};
 
-interface VerifyTokenResult<T> {
+interface VerifyTokenResult<T, E> {
   valid: boolean;
-  error: null | VerifyTokenResultError;
+  error: null | E;
   decoded: T | null;
 }
 
-export function verifyToken<T>(
+export function verifyToken<T, E>(
   token: string,
   secret: string
-): VerifyTokenResult<T> {
+): VerifyTokenResult<T, E> {
   try {
     const decoded = jwt.verify(token, secret) as T;
     return {
@@ -37,7 +36,7 @@ export function verifyToken<T>(
     const jwtError = error as JsonWebTokenError;
     return {
       valid: false,
-      error: jwtError.name as VerifyTokenResultError,
+      error: { name: jwtError.name } as E,
       decoded: null
     };
   }

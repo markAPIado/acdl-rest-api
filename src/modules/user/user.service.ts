@@ -8,8 +8,6 @@ export function createUser(
   return new User(input);
 }
 
-export function findUser(
-  query: FilterQuery<IUser>
-): Promise<HydratedDocument<UserQuery> | null> {
+export function findUser(query: FilterQuery<IUser>): Promise<UserQuery | null> {
   return User.findOne(query).exec();
 }

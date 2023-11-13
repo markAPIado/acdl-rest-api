@@ -7,6 +7,7 @@ import { HttpCode } from '../../shared/server/http/http-code.util';
 import { IUser } from '../user/user.model';
 import { findUser } from '../user/user.service';
 import { LoginDto } from './auth.dto';
+import { HydratedDocument } from 'mongoose';
 
 /**
  * NOTE: Record<string, never> is used to avoid passing in {} as the type
@@ -35,15 +36,13 @@ export async function authHandler(
     );
   }
 
-  const payload = pick(userExists, ['name', 'email']);
+  const payload = pick(userExists, ['name', 'email', '_id']);
 
-  const token = generateToken<Pick<IUser, 'name' | 'email'>>(
-    payload,
-    environment.jwtSecret,
-    {
-      expiresIn: environment.jwtExpiresIn
-    }
-  );
+  const token = generateToken<
+    Pick<HydratedDocument<IUser>, 'name' | 'email' | '_id'>
+  >(payload, environment.jwtSecret, {
+    expiresIn: environment.jwtExpiresIn
+  });
 
   res.json({ token });
 }
