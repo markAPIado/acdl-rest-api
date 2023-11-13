@@ -22,7 +22,8 @@ const environment = {
   corsOrigin: process.env.CORS_ORIGIN,
   saltWorkFactor: process.env.SALT_WORK_FACTOR, // value is string, so they need to be converted to numbers
   jwtSecret: process.env.JWT_SECRET,
-  jwtExpiresIn: process.env.JWT_EXPIRES_IN
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN,
+  inlineFileLoggingEnabled: !!process.env.INLINE_FILE_LOGGING_ENABLED // "!!" converts the value to boolean (1 = true, empty = false)
   /**
    * NOTE: Add more environment variables here
    */
