@@ -149,3 +149,7 @@ npm run cluster:start
 **Cleaning up**
 
 - `npm run clean` - removes the `dist`, `coverage`, and `node_modules` folders.
+
+# Postman Collection
+
+Import the <a href="RESTI Collections.postman_collection.json" target="_blank">RESTI Collections.postman_collection.json</a> file to Postman to test the API endpoints.

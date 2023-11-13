@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "ca568c12-f6af-47ea-9d0c-b6188b6b8170",
+		"name": "RESTI Collections",
+		"description": "This is a simple product and user resources management api.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4071486",
+		"_collection_link": "https://interstellar-zodiac-206002.postman.co/workspace/69be23a1-2748-401e-8537-d6a11a535512/collection/4071486-ca568c12-f6af-47ea-9d0c-b6188b6b8170?action=share&source=collection_link&creator=4071486"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product 1\",\r\n    \"description\": \"Product 1 Description\",\r\n    \"price\": 10,\r\n    \"quantity\": 100,\r\n    \"image\": \"https://unsplash.com/photos/two-bottles-of-medicine-are-shown-on-a-wall-5sMD8vHEOyI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{productEndpoint}}",
+							"host": [
+								"{{baseUrl}}{{productEndpoint}}"
+							]
+						},
+						"description": "Create Product: This operation is used to create a new product. It uses the HTTP POST method. The request body should contain the product details."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{productEndpoint}}/<ADD PRODUCT ID HERE>",
+							"host": [
+								"{{baseUrl}}{{productEndpoint}}"
+							],
+							"path": [
+								"<ADD PRODUCT ID HERE>"
+							]
+						},
+						"description": "Get Product By Id: This operation is used to retrieve the details of a product. It uses the HTTP GET method. The product ID should be provided in the URL."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{productEndpoint}}/<ADD PRODUCT ID HERE>",
+							"host": [
+								"{{baseUrl}}{{productEndpoint}}"
+							],
+							"path": [
+								"<ADD PRODUCT ID HERE>"
+							]
+						},
+						"description": "Delete Product: This operation is used to delete an existing product. It uses the HTTP DELETE method. The product ID should be provided in the URL."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product 6\",\r\n    \"description\": \"Product 2 Description\",\r\n    \"price\": 10,\r\n    \"quantity\": 8,\r\n    \"image\": \"https://unsplash.com/photos/two-bottles-of-medicine-are-shown-on-a-wall-5sMD8vHEOyI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{productEndpoint}}/<ADD PRODUCT ID HERE>",
+							"host": [
+								"{{baseUrl}}{{productEndpoint}}"
+							],
+							"path": [
+								"<ADD PRODUCT ID HERE>"
+							]
+						},
+						"description": "Update Product: This operation is used to update the details of an existing product. It uses the HTTP PUT method. The product ID should be provided in the URL, and the updated product details should be provided in the request body."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{productEndpoint}}",
+							"host": [
+								"{{baseUrl}}{{productEndpoint}}"
+							]
+						},
+						"description": "Delete Product: This operation is used to delete an existing product. It uses the HTTP DELETE method. The product ID should be provided in the URL."
+					},
+					"response": []
+				}
+			],
+			"description": "This documentation outlines the HTTP CRUD (Create, Read, Update, Delete) operations for the Product resource."
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mark Apiado\",\r\n    \"email\": \"markpiado.me@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{userEndpoint}}",
+							"host": [
+								"{{baseUrl}}{{userEndpoint}}"
+							]
+						},
+						"description": "Create User: This operation is used to register a new user. It uses the HTTP POST method. The request body should contain the user details."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData)\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"markpiado.me@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{authEndpoint}}",
+							"host": [
+								"{{baseUrl}}{{authEndpoint}}"
+							]
+						},
+						"description": "Login User: This operation is used to authenticate a user. It returns a token which can be used to Create, Update, and Delete a product."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000/v1/api",
+			"type": "string"
+		},
+		{
+			"key": "productEndpoint",
+			"value": "/products",
+			"type": "string"
+		},
+		{
+			"key": "userEndpoint",
+			"value": "/users",
+			"type": "string"
+		},
+		{
+			"key": "authEndpoint",
+			"value": "/auth",
+			"type": "string"
+		}
+	]
+}
