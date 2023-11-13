@@ -4,7 +4,13 @@
 
 This is a simple NodeJs Typescript Rest API using MVC design pattern. It uses MongoDB as the database and ExpressJs as the web framework.
 
-You may check the depyloyed API at https://resti.markapiado.com/health-check. Check the <a href="RESTI Collections.postman_collection.json" target="_blank">Postman Collection</a> for the API endpoints.
+## Production API
+
+**Base URL:** https://resti.markapiado.com
+
+**Documentaion:** https://documenter.getpostman.com/view/4071486/2s9YXk5224
+
+**Rate Limit:**: 100 requests per minute both for authenticated and unauthenticated users. This is to prevent abuse and to ensure the availability of the API for everyone.
 
 ## Features
 
