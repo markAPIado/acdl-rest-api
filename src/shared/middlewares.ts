@@ -16,6 +16,7 @@ function initMiddlewares(app: Express) {
       origin: function (origin, callback) {
         if (
           !origin ||
+          environment.corsOrigin === '*' ||
           environment.corsOrigin?.split(',').indexOf(origin) !== -1
         ) {
           callback(null, true);
@@ -23,14 +24,14 @@ function initMiddlewares(app: Express) {
           callback(new Error('Not allowed by CORS'));
         }
       },
-      credentials: true
+      credentials: false // NOTE: Set this to true if you need to use cookies with CORS
     })
   );
 
   /**
    * NOTE: This enables the rate limit for all the routes. You can enable it for specific routes. Check the session.routes.ts file.
    */
-  app.use(createRateLimit({ max: 1000, minutes: 15 }));
+  app.use(createRateLimit({ max: 100, minutes: 60 }));
 
   app.use(compression());
 
