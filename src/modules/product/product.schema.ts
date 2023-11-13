@@ -53,7 +53,7 @@ const productSchema = {
 };
 
 export const createProductSchema = z.object({
-  body: z.object(productSchema)
+  body: z.object(productSchema).strict()
 });
 
 const params = z.object({
@@ -68,7 +68,7 @@ export const getProductByIdSchema = z.object({
 
 export const updateProductSchema = z.object({
   params,
-  body: z.object(productSchema)
+  body: z.object(productSchema).strict()
 });
 
 export const deleteProductSchema = z.object({

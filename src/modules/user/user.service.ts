@@ -1,6 +1,6 @@
-import { FilterQuery, HydratedDocument, Query } from 'mongoose';
+import { FilterQuery, HydratedDocument } from 'mongoose';
 import { CreateUserDto } from './user.dto';
-import User, { IUser } from './user.model';
+import User, { IUser, UserQuery } from './user.model';
 
 export function createUser(
   input: CreateUserDto['body']
@@ -8,8 +8,6 @@ export function createUser(
   return new User(input);
 }
 
-export function findUser(
-  query: FilterQuery<IUser>
-): Query<IUser | null, IUser> {
-  return User.findOne(query);
+export function findUser(query: FilterQuery<IUser>): Promise<UserQuery | null> {
+  return User.findOne(query).exec();
 }

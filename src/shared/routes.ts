@@ -6,6 +6,7 @@ import productRouter, {
   ProductRoutes
 } from '../modules/product/product.routes';
 import userRouter, { UserRoutes } from '../modules/user/user.routes';
+import authRouter, { AuthRoutes } from '../modules/auth/auth.routes';
 
 const API_PREFIX = '/v1/api';
 
@@ -15,6 +16,7 @@ function initRoutes(app: Express) {
    */
 
   app.use(`${API_PREFIX}${UserRoutes.ApiPath}`, userRouter);
+  app.use(`${API_PREFIX}${AuthRoutes.ApiPath}`, authRouter);
   app.use(`${API_PREFIX}${ProductRoutes.ApiPath}`, productRouter);
 
   /**

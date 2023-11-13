@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { USER_VALIDATION } from './user.constants';
 
-const userSchema = {
+export const userSchema = {
   name: z
     .string()
     .max(
@@ -34,5 +34,5 @@ const userSchema = {
 };
 
 export const createUserSchema = z.object({
-  body: z.object(userSchema)
+  body: z.object(userSchema).strict()
 });
